@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoe Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: linear-gradient(to right, #000000, #434343);
+            color: white;
+        }
+        .container {
+            width: 350px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #212121;
+            border-radius: 10px;
+            background: rgba(141, 137, 137, 0.1);
+            box-shadow: 0 0 8px rgba(164, 164, 162, 0.2);
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background: #58d3d3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #4e4c4b;
+        }
+        h3 {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Elite Feet</h2>
+        <label for="product">Choose a Shoe:</label>
+        <select id="product">
+            <option value="Nike" data-price="5000">Nike - $5000</option>
+            <option value="Adidas" data-price="4000">Adidas - $4000</option>
+            <option value="Puma" data-price="3000">Puma - $3000</option>
+        </select>
+        
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" min="1" value="1">
+        
+        <label for="discount">Discount (%):</label>
+        <input type="number" id="discount" min="0" value="0">
+        
+        <label for="tax">Tax (%):</label>
+        <input type="number" id="tax" min="0" value="10">
+        
+        <button onclick="calculateTotal()">Calculate</button>
+        <h3 id="total">Total: $0</h3>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            let productSelect = document.getElementById("product");
+            let quantity = parseInt(document.getElementById("quantity").value);
+            let price = parseInt(productSelect.options[productSelect.selectedIndex].getAttribute("data-price"));
+            let discount = parseInt(document.getElementById("discount").value);
+            let tax = parseInt(document.getElementById("tax").value);
+            
+            if (quantity <= 0) {
+                alert("Please enter a valid quantity.");
+                return;
+            }
+            
+            let totalAmount = quantity * price;
+            let discountAmount = (totalAmount * discount) / 100;
+            let taxAmount = (totalAmount * tax) / 100;
+            let finalAmount = totalAmount - discountAmount + taxAmount;
+            
+            document.getElementById("total").innerText = "Total: $" + finalAmount.toFixed(2);
+        }
+    </script>
+</body>
+</html>
